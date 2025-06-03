@@ -1,8 +1,13 @@
+// src/server.js
+require("dotenv").config(); // ✅ HARUS di atas sebelum pakai process.env
+
 const http = require("http");
 const routes = require("./routes");
+const connectDB = require("./db");
+
+connectDB(); // setelah .env dibaca
 
 const server = http.createServer((req, res) => {
-  // Tambahkan Header CORS di semua response
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader(
     "Access-Control-Allow-Methods",
@@ -10,9 +15,8 @@ const server = http.createServer((req, res) => {
   );
   res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
 
-  // Tangani request OPTIONS (preflight request)
   if (req.method === "OPTIONS") {
-    res.writeHead(204); // No Content
+    res.writeHead(204);
     res.end();
     return;
   }
@@ -23,5 +27,5 @@ const server = http.createServer((req, res) => {
 
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
-  console.log(`Brainomaly API running at http://localhost:${PORT}`);
+  console.log(`🚀 Brainomaly API running at http://localhost:${PORT}`);
 });

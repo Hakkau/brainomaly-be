@@ -1,6 +1,6 @@
 const JWT = require("jsonwebtoken");
 
-const JWT_SECRET = "rahasia_super_aman"; // Ganti di produksi
+const JWT_SECRET = process.env.JWT_SECRET;
 
 const verifyToken = (req, res, requiredRole = null) => {
   const authHeader = req.headers["authorization"];
